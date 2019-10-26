@@ -106,3 +106,21 @@ void MainWidget::on_btnSupplierDevLogin_clicked()
     auto revData = mcures.loginSupplier(*param);
     textEdirConsoleAuthInfo(revData);
 }
+
+void MainWidget::on_pushButton_clicked()
+{
+    auto param = McCommon::ConfigData::instance().proSuplierData();
+
+    if (param == nullptr) {
+        McCommon::ConfigData::DataEmpyWarrmingMsgBox();
+        return;
+    }
+    McCommon::McRequestUser mcures;
+    auto revData = mcures.loginSupplier(*param);
+    textEdirConsoleAuthInfo(revData);
+}
+
+void MainWidget::on_btnClearEdit_clicked()
+{
+    ui->textEdit->clear();
+}

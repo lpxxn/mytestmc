@@ -29,6 +29,10 @@ private slots:
 
     void on_btnSupplierDevLogin_clicked();
 
+    void on_pushButton_clicked();
+
+    void on_btnClearEdit_clicked();
+
 private:
     void loginGet(const McCommon::LoginConfigData *param);
     void textEdirConsoleAuthInfo(const McCommon::ResponseUserData &data);
