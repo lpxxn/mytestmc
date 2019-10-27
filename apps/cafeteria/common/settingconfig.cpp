@@ -43,9 +43,9 @@ void SettingConfig::readLoginValue(QString settingKey)
 {
     bool haveItem = false;
     foreach (auto const &item, this->confSettings->allKeys()) {
-          if (item.contains(settingKey,  Qt::CaseInsensitive)) {
-              haveItem = true;
-          }
+        if (item.contains(settingKey,  Qt::CaseInsensitive)) {
+            haveItem = true;
+        }
     }
     if (!haveItem) {
         return;
