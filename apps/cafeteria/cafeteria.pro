@@ -75,7 +75,8 @@ SOURCES += \
     common/util.cpp \
         main.cpp \
         mainwidget.cpp \
-    mcsetting.cpp
+    mcsetting.cpp \
+    supplierform.cpp
 
 HEADERS += \
     common/configdata.h \
@@ -85,11 +86,13 @@ HEADERS += \
     common/settingconfig.h \
     common/util.h \
         mainwidget.h \
-    mcsetting.h
+    mcsetting.h \
+    supplierform.h
 
 FORMS += \
         mainwidget.ui \
-        mcsetting.ui
+        mcsetting.ui \
+        supplierform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
