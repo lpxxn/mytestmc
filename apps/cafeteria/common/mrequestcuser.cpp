@@ -17,6 +17,8 @@ namespace McCommon {
 McRequestUser::McRequestUser(QObject *parent):QObject(parent)
 {
     manager = new QNetworkAccessManager();
+    progressDialog = new QProgressDialog();
+    progressDialog->setCancelButton(nullptr);
     //QObject::connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(managerFinished(QNetworkReply *)));
     QObject::connect(manager, &QNetworkAccessManager::finished, this, &McRequestUser::managerFinished);
     //    QObject::connect(manager, &QNetworkAccessManager::finished, this, [=](QNetworkReply *reply) {
@@ -32,26 +34,32 @@ McRequestUser::McRequestUser(QObject *parent):QObject(parent)
     //);
 }
 
+McRequestUser::McRequestUser(QWidget *parent):QObject(parent)
+{
+    manager = new QNetworkAccessManager();
+    progressDialog = new QProgressDialog(parent);
+    progressDialog->setCancelButton(nullptr);
+    //QObject::connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(managerFinished(QNetworkReply *)));
+    QObject::connect(manager, &QNetworkAccessManager::finished, this, &McRequestUser::managerFinished);
+}
+
 void McRequestUser::loginGet(const QUrl &url)
 {
     request.setUrl(url);
     qDebug() << request.url().url();
-    QNetworkReply *rese = manager->get(request);
+    QNetworkReply *response = manager->get(request);
 
-    if (rese->error()) {
-        qDebug() << rese->errorString();
-        return;
+    if (response->error()) {
+        qDebug() << response->errorString();
     }
+    responseHandle(*response);
 
-    QEventLoop loop;
-    connect(rese, SIGNAL(finished()), &loop, SLOT(quit()));
-    loop.exec();
     //qDebug() << rese->readAll();// will be empty. will run managerFinished
     qDebug() << "finshed request";
 }
 
 ResponseUserData McRequestUser::loginPlay(const LoginConfigData &data)
-{
+{   
     QString pwd = data.userPwd;
     if (data.pwdNeedMinute) {
         pwd.append(currentMinute());
@@ -62,10 +70,7 @@ ResponseUserData McRequestUser::loginPlay(const LoginConfigData &data)
 
     qDebug() << urlStr << "\n" << request.url().url();
     QNetworkReply *response = manager->get(request);
-
-    QEventLoop loop;
-    connect(response, SIGNAL(finished()), &loop, SLOT(quit()));
-    loop.exec();
+    responseHandle(*response);
     //qDebug() << rese->readAll();// will be empty. will run managerFinished
     qDebug() << "finshed request";
 
@@ -114,9 +119,7 @@ ResponseUserData McRequestUser::loginSupplier(const LoginConfigData &data)
     this->request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     QNetworkReply *response = manager->post(request, jsonString);
 
-    QEventLoop loop;
-    connect(response, SIGNAL(finished()), &loop, SLOT(quit()));
-    loop.exec();
+    responseHandle(*response);
     //qDebug() << rese->readAll();// will be empty. will run managerFinished
     qDebug() << "finshed request";
 
@@ -151,6 +154,7 @@ ResponseUserData McRequestUser::loginSupplier(const LoginConfigData &data)
 McRequestUser::~McRequestUser()
 {
     delete manager;
+    delete progressDialog;
 }
 
 void McRequestUser::managerFinished(QNetworkReply *)
@@ -171,7 +175,34 @@ void McRequestUser::managerFinished(QNetworkReply *)
 //        return;
 //    }
 //    QString accessToken = jsonReply["access_token"].toString();
-//    qDebug() << "accessToken: "<< accessToken;
+    //    qDebug() << "accessToken: "<< accessToken;
+}
+
+void McRequestUser::updateDownloadProgress(qint64 byteRead, qint64 total)
+{
+    this->progressDialog->setMaximum(int(total));
+    this->progressDialog->setValue(int(byteRead));
+}
+
+void McRequestUser::httpDownloadFinished()
+{
+   this->progressDialog->hide();
+}
+
+void McRequestUser::progressDialogShow(const QString &uri)
+{
+    progressDialog->setLabelText(uri);
+
+}
+
+void McRequestUser::responseHandle(const QNetworkReply &resp)
+{
+    connect(&resp, &QNetworkReply::downloadProgress, this, &McRequestUser::updateDownloadProgress);
+    connect(&resp, &QNetworkReply::finished, this, &McRequestUser::httpDownloadFinished);
+    this->progressDialog->show();
+    QEventLoop loop;
+    connect(&resp, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
 }
 
 QDebug operator<<(QDebug dbg, const ResponseUserData &data)

@@ -73,7 +73,7 @@ void MainWidget::loginGet(const McCommon::LoginConfigData *param)
         return;
     }
     qDebug() << param->getURL();
-    McCommon::McRequestUser mcures;
+    McCommon::McRequestUser mcures(this);
     auto revData = mcures.loginPlay(*param);
     textEdirConsoleAuthInfo(revData);
 }
@@ -102,7 +102,7 @@ void MainWidget::on_btnSupplierDevLogin_clicked()
         McCommon::ConfigData::DataEmpyWarrmingMsgBox();
         return;
     }
-    McCommon::McRequestUser mcures;
+    McCommon::McRequestUser mcures(this);
     auto revData = mcures.loginSupplier(*param);
     textEdirConsoleAuthInfo(revData);
 }
@@ -115,7 +115,7 @@ void MainWidget::on_pushButton_clicked()
         McCommon::ConfigData::DataEmpyWarrmingMsgBox();
         return;
     }
-    McCommon::McRequestUser mcures;
+    McCommon::McRequestUser mcures(this);
     auto revData = mcures.loginSupplier(*param);
     textEdirConsoleAuthInfo(revData);
 }
