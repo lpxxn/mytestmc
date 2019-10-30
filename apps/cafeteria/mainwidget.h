@@ -32,6 +32,7 @@ private slots:
     void on_pushButton_clicked();
 
     void on_btnClearEdit_clicked();
+    void onSupplierOpenWindow();
 
 private:
     void loginGet(const McCommon::LoginConfigData *param);

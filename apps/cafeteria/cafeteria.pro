@@ -73,6 +73,7 @@ SOURCES += \
     common/mrequestcuser.cpp \
     common/settingconfig.cpp \
     common/util.cpp \
+    flowlayout.cpp \
         main.cpp \
         mainwidget.cpp \
     mcsetting.cpp \
@@ -85,6 +86,7 @@ HEADERS += \
     common/mrequestcuser.h \
     common/settingconfig.h \
     common/util.h \
+    flowlayout.h \
         mainwidget.h \
     mcsetting.h \
     supplierform.h

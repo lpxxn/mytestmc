@@ -8,6 +8,7 @@
 #include "common/mrequestcuser.h"
 #include "common/configdata.h"
 #include "common/settingconfig.h"
+#include "supplierform.h"
 #include "mcsetting.h"
 
 void AboutMsg();
@@ -21,6 +22,7 @@ MainWidget::MainWidget(QWidget *parent) :
 
     McCommon::SettingConfig seetingConfig;
     QTimer::singleShot(1000, this, &MainWidget::afterInit);
+    connect(ui->btnSupplierWindow, &QPushButton::clicked, this, &MainWidget::onSupplierOpenWindow);
 }
 
 MainWidget::~MainWidget()
@@ -123,4 +125,10 @@ void MainWidget::on_pushButton_clicked()
 void MainWidget::on_btnClearEdit_clicked()
 {
     ui->textEdit->clear();
+}
+
+void MainWidget::onSupplierOpenWindow()
+{
+    SupplierForm *supplierForm = new SupplierForm;
+    supplierForm->show();
 }
