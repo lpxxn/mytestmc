@@ -32,7 +32,7 @@ int FlowLayout::verticalSpacing() const
 
 FlowLayout::~FlowLayout()
 {
-    qDeleteAll(this->itemList);
+   qDeleteAll(this->itemList);
 }
 
 void FlowLayout::addItem(QLayoutItem *item)

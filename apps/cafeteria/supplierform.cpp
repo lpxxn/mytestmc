@@ -28,7 +28,7 @@ SupplierForm::SupplierForm(QWidget *parent) :
     this->setDockNestingEnabled(true);
 
     leftDock = new QDockWidget(QLatin1String("Left"), this);
-    QWidget* multiWidget = new QWidget();
+    QWidget* multiWidget = new QWidget(this);
     //multiWidget->setMaximumWidth(110);
 
     FlowLayout* layout = new FlowLayout;
