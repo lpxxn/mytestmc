@@ -8,7 +8,7 @@
 
 void SupplierForm::addButtons(FlowLayout &layout) {
     QPushButton *pb2 = new QPushButton("b");
-    pb2->setMaximumWidth(100);
+    pb2->setMinimumWidth(100);
     pb2->setMinimumHeight(80);
     layout.addWidget(pb2);
 }
@@ -33,7 +33,7 @@ SupplierForm::SupplierForm(QWidget *parent) :
 
     FlowLayout* layout = new FlowLayout;
     QPushButton *pb = new QPushButton("a");
-    pb->setMaximumWidth(100);
+    pb->setMinimumWidth(100);
     pb->setMinimumHeight(80);
     connect(pb, &QPushButton::clicked, this, &SupplierForm::leftDockWidgetReset);
     layout->addWidget(pb);
