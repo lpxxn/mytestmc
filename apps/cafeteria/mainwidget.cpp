@@ -10,6 +10,7 @@
 #include "common/settingconfig.h"
 #include "supplierform.h"
 #include "mcsetting.h"
+#include "customerurisetting.h"
 
 void AboutMsg();
 
@@ -129,6 +130,9 @@ void MainWidget::on_btnClearEdit_clicked()
 
 void MainWidget::onSupplierOpenWindow()
 {
-    SupplierForm *supplierForm = new SupplierForm;
-    supplierForm->show();
+//    SupplierForm *supplierForm = new SupplierForm;
+//    supplierForm->show();
+
+    auto *customerUriSetting = new CustomerUriSetting;
+    customerUriSetting->show();
 }
