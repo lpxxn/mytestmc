@@ -141,3 +141,4 @@ Temporary Items
 # End of https://www.gitignore.io/api/macos
 .qmake.stash
 *.qmake.stash
+db
