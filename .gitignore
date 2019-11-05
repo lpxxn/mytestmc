@@ -36,6 +36,8 @@
 *.out
 *.app
 
+*.db
+*.db3
 ### Qt ###
 # C++ objects and libs
 
