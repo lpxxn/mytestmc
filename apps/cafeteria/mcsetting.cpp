@@ -2,6 +2,7 @@
 #include <QCloseEvent>
 #include <QLineEdit>
 #include <QMessageBox>
+#include <QDebug>
 
 #include "mcsetting.h"
 #include "ui_mcsetting.h"
@@ -9,11 +10,21 @@
 #include "common/configdata.h"
 #include "common/constants.h"
 
+enum A {
+    Aa,
+    Ab
+};
+
 McSetting::McSetting(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::McSetting)
 {
     ui->setupUi(this);
+    A a = A::Aa;
+    if (a == 0) {
+
+    }
+    qDebug() << "adfasdf";
     //this->setWindowFlag(Qt::Window);
     //this->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog); //去除窗体边框
     //this->setWindowModality(Qt::WindowModal);//阻挡父亲窗口内其他控件，除非本dialog关闭

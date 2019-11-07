@@ -30,4 +30,6 @@ private:
     McCommon::SettingConfig *settingConfig;
 };
 
+
+
 #endif // MCSETTING_H

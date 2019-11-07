@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui network
+QT       += sql
 
 
 message('------------')
@@ -68,7 +69,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    common/comboboxdelegate.cpp \
     common/configdata.cpp \
+    common/kvcomboboxdelegate.cpp \
     common/loginconfigdata.cpp \
     common/mrequestcuser.cpp \
     common/settingconfig.cpp \
@@ -81,8 +84,10 @@ SOURCES += \
     supplierform.cpp
 
 HEADERS += \
+    common/comboboxdelegate.h \
     common/configdata.h \
     common/constants.h \
+    common/kvcomboboxdelegate.h \
     common/loginconfigdata.h \
     common/mrequestcuser.h \
     common/settingconfig.h \
@@ -103,3 +108,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc

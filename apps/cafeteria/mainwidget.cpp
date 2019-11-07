@@ -133,6 +133,6 @@ void MainWidget::onSupplierOpenWindow()
 //    SupplierForm *supplierForm = new SupplierForm;
 //    supplierForm->show();
 
-    auto *customerUriSetting = new CustomerUriSetting;
+    auto *customerUriSetting = new CustomerUriSetting(this);
     customerUriSetting->show();
 }

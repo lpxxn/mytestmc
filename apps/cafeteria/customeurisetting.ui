@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>925</width>
-    <height>596</height>
+    <width>1005</width>
+    <height>504</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -70,7 +70,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>925</width>
+     <width>1005</width>
      <height>25</height>
     </rect>
    </property>
@@ -91,19 +91,14 @@
    <addaction name="actOpenNewDB"/>
   </widget>
   <action name="actOpenNewDB">
-   <property name="icon">
-    <iconset>
-     <normaloff>../../../../../Desktop/WechatIMG10185.jpeg</normaloff>../../../../../Desktop/WechatIMG10185.jpeg</iconset>
-   </property>
    <property name="text">
-    <string>找开新的DB</string>
+    <string>OpenNew</string>
+   </property>
+   <property name="toolTip">
+    <string>打开新的DB</string>
    </property>
   </action>
   <action name="actSave">
-   <property name="icon">
-    <iconset>
-     <normaloff>../../../../../Desktop/images.jpg</normaloff>../../../../../Desktop/images.jpg</iconset>
-   </property>
    <property name="text">
     <string>保存</string>
    </property>
