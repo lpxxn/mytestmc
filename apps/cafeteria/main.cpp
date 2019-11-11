@@ -4,6 +4,17 @@
 #include <QtDebug>
 #include <QDir>
 
+void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    if (msg.contains("QSql"), Qt::CaseInsensitive) {
+        // found it
+        int dummy = 0;
+        qDebug() << msg;
+    }
+    qDebug() << msg;
+
+}
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -21,5 +32,7 @@ int main(int argc, char *argv[])
 #endif
     QDir::setCurrent(bin.absolutePath());
     qDebug() << "after QDir::currentPath()" << QDir::currentPath();
+    qInstallMessageHandler(myMessageOutput);
+
     return a.exec();
 }

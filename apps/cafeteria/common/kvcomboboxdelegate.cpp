@@ -3,46 +3,55 @@
 
 namespace McCommon {
 
-template<typename T>
-KvComboBoxDelegate<T>::KvComboBoxDelegate(QObject *parent):QStyledItemDelegate(parent)
+KvComboBoxDelegate::KvComboBoxDelegate(QObject *parent):QStyledItemDelegate(parent)
 {
 
 }
 
-template<typename T>
-QWidget *KvComboBoxDelegate<T>::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+void KvComboBoxDelegate::setItems(const QList<QPair<QString, int>> &items, bool isEdit)
+{
+    this->m_itemList = items;
+    this->m_isEdit = isEdit;
+}
+
+QWidget *KvComboBoxDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     Q_UNUSED(option)
     Q_UNUSED(index)
     QComboBox *editor = new QComboBox(parent);
     for (const auto &item : m_itemList) {
-         editor->addItem(item.first(), item.second());
+         editor->addItem(item.first, QVariant::fromValue(item.second));
     }
     editor->setEditable(m_isEdit);
     return editor;
 }
 
-template<typename T>
-void KvComboBoxDelegate<T>::setEditorData(QWidget *editor, const QModelIndex &index) const
+void KvComboBoxDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
     auto currentModel = index.model();
-    auto str = currentModel->data(index, Qt::EditRole).toString();
+    auto str = currentModel->data(index, Qt::DisplayRole).toString();
+    auto id = currentModel->data(index, Qt::EditRole).toString().toInt();
+    for (const auto &item : m_itemList) {
+        if (item.second == id) {
+            str = item.first;
+            break;
+        }
+    }
     QComboBox *comboBox = static_cast<QComboBox*>(editor);
+    comboBox->setFocus();
     comboBox->setCurrentText(str);
 }
 
-template<typename T>
-void KvComboBoxDelegate<T>::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+void KvComboBoxDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     QComboBox *comboBox = static_cast<QComboBox*>(editor);
     QString str = comboBox->currentText();
-    auto userData = comboBox->currentData();
-    model->setData(index, str, Qt::EditRole);
-    model->setData(index, userData, Qt::UserRole);
+    auto userData = comboBox->currentData().toInt();
+    model->setData(index, str, Qt::DisplayRole);
+    model->setData(index, userData, Qt::EditRole);
 }
 
-template<typename T>
-void KvComboBoxDelegate<T>::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
+void KvComboBoxDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     Q_UNUSED(index)
     editor->setGeometry(option.rect);

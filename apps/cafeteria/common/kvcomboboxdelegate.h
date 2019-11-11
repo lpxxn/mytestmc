@@ -8,15 +8,16 @@
 
 namespace McCommon {
 
-template<typename T>
 class KvComboBoxDelegate : public QStyledItemDelegate
 {
+    Q_OBJECT
+
 public:
     KvComboBoxDelegate(QObject *parent = nullptr);
-
+    void setItems(const QList<QPair<QString, int>> &items, bool isEdit);
 
 private:
-    QList<QPair<QString, T>> m_itemList;
+    QList<QPair<QString, int>> m_itemList;
     bool m_isEdit;
 
     // QAbstractItemDelegate interface
