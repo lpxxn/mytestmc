@@ -77,8 +77,8 @@ SOURCES += \
     common/util.cpp \
     customerurisetting.cpp \
     flowlayout.cpp \
-        main.cpp \
-        mainwidget.cpp \
+    main.cpp \
+    mainwidget.cpp \
     mcsetting.cpp \
     supplierform.cpp
 
@@ -93,7 +93,7 @@ HEADERS += \
     common/util.h \
     customerurisetting.h \
     flowlayout.h \
-        mainwidget.h \
+    mainwidget.h \
     mcsetting.h \
     supplierform.h
 
